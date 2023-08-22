@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import {ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const WalletCard = () => {
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -20,8 +22,15 @@ const WalletCard = () => {
         return network.chainId == chainId;
       });
       console.log(networkDetails);
+      
       setDefaultNetwork(networkDetails.name);
       setDefaultAccount(account);
+
+      //notification using react-toastify
+      toast.success('Wallet connected successfully!', {
+        position: 'top-right',
+        autoClose: 3000, // Close after 3 seconds
+      });
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +66,13 @@ const WalletCard = () => {
           ],
         });
         setDefaultNetwork(networkDetails.name);
-        // Network switched successfully
+        
+        //notification using react-toastify
+        toast.success(`Connected to ${networkDetails.name}`, {
+          position: 'top-right',
+          autoClose: 3000, // Close after 3 seconds
+        });
+        
       } catch (error) {
         // Error while switching network
         console.log(error);
@@ -93,6 +108,7 @@ const WalletCard = () => {
           Switch to Arbitrum One
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
